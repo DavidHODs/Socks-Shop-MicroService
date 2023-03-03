@@ -1,4 +1,4 @@
-FROM nginx:1.14.2
+FROM nginx:latest
 
 LABEL version="0.0.1"
 LABEL maintainer="davidoluwatobi41@gmail.com"
