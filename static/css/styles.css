@@ -493,6 +493,11 @@ progress {
   font-weight: 300;
 }
 
+.mod-lead {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
 .display-1 {
   font-size: calc(1.625rem + 4.5vw);
   font-weight: 300;
