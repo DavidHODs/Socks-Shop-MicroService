@@ -26,13 +26,12 @@ func renderPage(res http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	// var dir string
 	var port int = 8000
 
 	router := mux.NewRouter()
 
 	router.HandleFunc("/", renderPage).Methods("GET")
-	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("/"))))
+	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 
 	srv := &http.Server{
 		Handler:      router,
