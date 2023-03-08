@@ -10,14 +10,35 @@ import (
 	"github.com/gorilla/mux"
 )
 
+type dataStruct struct {
+	Name    string
+	Email   string
+	Comment string
+}
+
 func renderPage(res http.ResponseWriter, req *http.Request) {
 	if req.Method == "GET" {
-		page, err := template.ParseFiles("index.gohtml")
+		page, err := template.ParseFiles("index.tmpl")
 		if err != nil {
 			http.Error(res, err.Error(), http.StatusInternalServerError)
 		}
 
-		err = page.Execute(res, "")
+		data := []dataStruct{
+			{
+				Name:    "ff",
+				Comment: "ff",
+			},
+			{
+				Name:    "ff",
+				Comment: "ff",
+			},
+			{
+				Name:    "ff",
+				Comment: "ff",
+			},
+		}
+
+		err = page.Execute(res, data)
 
 		if err != nil {
 			return
@@ -44,3 +65,46 @@ func main() {
 
 	log.Fatal(srv.ListenAndServe())
 }
+
+// package main
+
+// import (
+// 	"os"
+// 	"text/template"
+// )
+
+// type Pet struct {
+// 	Name   string
+// 	Sex    string
+// 	Intact bool
+// 	Age    string
+// 	Breed  string
+// }
+
+// func main() {
+// 	dogs := []Pet{
+// 		{
+// 			Name:   "Jujube",
+// 			Sex:    "Female",
+// 			Intact: false,
+// 			Age:    "10 months",
+// 			Breed:  "German Shepherd/Pitbull",
+// 		},
+// 		{
+// 			Name:   "Zephyr",
+// 			Sex:    "Male",
+// 			Intact: true,
+// 			Age:    "13 years, 3 months",
+// 			Breed:  "German Shepherd/Border Collie",
+// 		},
+// 	}
+// 	var tmplFile = "pets.tmpl"
+// 	tmpl, err := template.New(tmplFile).ParseFiles(tmplFile)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	err = tmpl.Execute(os.Stdout, dogs)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// }

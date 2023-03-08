@@ -100,8 +100,7 @@
           <div class="mod-subheading mb-5">
             Ado-Ekiti, Nigeria · +2348106282795 ·
             <a class="mod-mb-0" href="mailto:davidoluwatobi41@gmail.com"
-              >davidoluwatobi41@gmail.com</a
-            >
+              >davidoluwatobi41@gmail.com</a>
           </div>
           <p class="mod-lead mb-5">
             Software Engineer
@@ -533,7 +532,7 @@
         <div class="resume-section-content">
           <h2 class="mod-mb-5">Programming Languages & Technologies</h2>
           <ul class="list-inline dev-icons">
-            <li><h4>Golang Python Haskell Linux</h4></li>
+            <li><h4>Golang Python Haskell Linux Bash</h4></li>
             <li><h4>Docker Terraform Ansible Kubernetes Git Jenkins</h4></li>
             <li><h4>PostgreSQL MySQL MongoDB</h4></li>
             <li><h4>AWS</h4></li>
@@ -558,6 +557,16 @@
           <h2 class="mb-5">Contact Me</h2>
           <p>
             I'm on the look out for full time roles, internships, contract appointments and gigs. If you have a spot you feel I'm a perfect fit for, you can send me a message by clicking on the message icon.
+          </p>
+
+          <p>
+            You can drop tips and career advices on perceieved skill gaps. You can drop some words of encouragement as well.
+          </p>
+            {{ range . }}
+            <p>{{ .Comment }} - {{ .Name }}</p>
+            {{ end }}
+          <p>
+
           </p>
           <script src="https://formspree.io/js/formbutton-v1.min.js" defer></script>
           <script>
@@ -603,3 +612,4 @@
     <script src="/static/js/scripts.js"></script>
   </body>
 </html>
+
