@@ -15,7 +15,6 @@ var db *sql.DB
 
 type dataStruct struct {
 	Name    string
-	Email   string
 	Comment string
 }
 
@@ -27,32 +26,31 @@ func renderPage(res http.ResponseWriter, req *http.Request) {
 			http.Error(res, err.Error(), http.StatusInternalServerError)
 		}
 
-		data := []dataStruct{
-			{
-				Name:    "ff",
-				Comment: "ff",
-			},
-			{
-				Name:    "ff",
-				Comment: "ff",
-			},
-			{
-				Name:    "ff",
-				Comment: "ff",
-			},
-		}
-
-		stmt := `insert into record(name, comment) values($1, $2)`
-		_, err = db.Exec(stmt, "Jake", "rooting for you")
+		rows, err := db.Query(`SELECT name, comment FROM record;`)
 		if err != nil {
 			fmt.Println(err)
 		}
 
-		// renders and passes data to the template file
-		err = page.Execute(res, data)
+		defer rows.Close()
 
+		data := dataStruct{}
+		results := []dataStruct{}
+
+		for rows.Next() {
+			var name string
+			var comment string
+			if err := rows.Scan(&name, &comment); err != nil {
+				http.Error(res, err.Error(), http.StatusInternalServerError)
+			}
+			data.Name = name
+			data.Comment = comment
+			results = append(results, data)
+		}
+
+		// renders and passes data to the template file
+		err = page.Execute(res, results)
 		if err != nil {
-			return
+			http.Error(res, err.Error(), http.StatusInternalServerError)
 		}
 	}
 }

@@ -562,10 +562,28 @@
           <p>
             You can drop tips and career advices on perceieved skill gaps. You can drop some words of encouragement as well.
           </p>
+          <form action="/" method="POST">
+            <div>
+              <label for="name">Name</label>
+              <input name="name" id="name"/>
+            </div>
+            <div>
+              <label for="message">Message</label>
+              <input name="message" id="message" />
+            </div>
+            <div>
+              <button>Comment</button>
+            </div>
+          </form>
+
+          <br>
+          <br>
+          <div>
             {{ range . }}
-            <p>{{ .Comment }} - {{ .Name }}</p>
+            <p>"{{ .Comment }}" - {{ .Name }}</p>
             {{ end }}
-          <p>
+            <p>
+          </div>
 
           </p>
           <script src="https://formspree.io/js/formbutton-v1.min.js" defer></script>
