@@ -54,6 +54,8 @@ func main() {
 	router.HandleFunc("/", renderPage).Methods("GET")
 	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 
+	database()
+
 	srv := &http.Server{
 		Handler:      router,
 		Addr:         fmt.Sprintf("127.0.0.1:%d", port),
@@ -65,46 +67,3 @@ func main() {
 
 	log.Fatal(srv.ListenAndServe())
 }
-
-// package main
-
-// import (
-// 	"os"
-// 	"text/template"
-// )
-
-// type Pet struct {
-// 	Name   string
-// 	Sex    string
-// 	Intact bool
-// 	Age    string
-// 	Breed  string
-// }
-
-// func main() {
-// 	dogs := []Pet{
-// 		{
-// 			Name:   "Jujube",
-// 			Sex:    "Female",
-// 			Intact: false,
-// 			Age:    "10 months",
-// 			Breed:  "German Shepherd/Pitbull",
-// 		},
-// 		{
-// 			Name:   "Zephyr",
-// 			Sex:    "Male",
-// 			Intact: true,
-// 			Age:    "13 years, 3 months",
-// 			Breed:  "German Shepherd/Border Collie",
-// 		},
-// 	}
-// 	var tmplFile = "pets.tmpl"
-// 	tmpl, err := template.New(tmplFile).ParseFiles(tmplFile)
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// 	err = tmpl.Execute(os.Stdout, dogs)
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// }
