@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
 	"html/template"
 	"log"
@@ -10,12 +11,15 @@ import (
 	"github.com/gorilla/mux"
 )
 
+var db *sql.DB
+
 type dataStruct struct {
 	Name    string
 	Email   string
 	Comment string
 }
 
+// GET renders the html page, POST inserts form record into the database
 func renderPage(res http.ResponseWriter, req *http.Request) {
 	if req.Method == "GET" {
 		page, err := template.ParseFiles("index.tmpl")
@@ -38,6 +42,13 @@ func renderPage(res http.ResponseWriter, req *http.Request) {
 			},
 		}
 
+		stmt := `insert into record(name, comment) values($1, $2)`
+		_, err = db.Exec(stmt, "Jake", "rooting for you")
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		// renders and passes data to the template file
 		err = page.Execute(res, data)
 
 		if err != nil {
@@ -52,6 +63,7 @@ func main() {
 	router := mux.NewRouter()
 
 	router.HandleFunc("/", renderPage).Methods("GET")
+	// loads static files to be rendered
 	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 
 	database()

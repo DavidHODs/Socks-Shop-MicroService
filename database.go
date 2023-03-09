@@ -11,6 +11,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
+// loads env details
 func loadEnv() (string, int, string, string, string) {
 	err := godotenv.Load(".env")
 	if err != nil {
@@ -22,17 +23,18 @@ func loadEnv() (string, int, string, string, string) {
 	return os.Getenv("host"), port, os.Getenv("user"), os.Getenv("password"), os.Getenv("dbname")
 }
 
+// sets up a database connection
 func database() {
 	host, port, user, password, dbname := loadEnv()
 
 	info := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
 
-	db, err := sql.Open("postgres", info)
+	var err error
+
+	db, err = sql.Open("postgres", info)
 	if err != nil {
 		panic(err)
 	}
-
-	defer db.Close()
 
 	err = db.Ping()
 	if err != nil {
