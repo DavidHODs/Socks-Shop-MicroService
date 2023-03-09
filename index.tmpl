@@ -562,14 +562,14 @@
           <p>
             You can drop tips and career advices on perceieved skill gaps. You can drop some words of encouragement as well.
           </p>
-          <form action="/" method="POST">
+          <form action="/insertrecord" method="POST">
             <div>
               <label for="name">Name</label>
-              <input name="name" id="name"/>
+              <input name="name" id="name" required="Yes"/>
             </div>
             <div>
               <label for="message">Message</label>
-              <input name="message" id="message" />
+              <input name="message" id="message"  required="Yes"/>
             </div>
             <div>
               <button>Comment</button>
