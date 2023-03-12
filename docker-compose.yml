@@ -1,0 +1,30 @@
+version: '3'
+services:
+  app:
+    image: resume:latest
+    container_name: resume-app
+    ports: 
+      - 8000:8000
+    restart: on-failure
+    depends_on:
+      - db         
+
+  db:
+    image: postgres:latest
+    container_name: resume-db
+    environment:
+      # - POSTGRES_USER=${DB_USER}  
+      # - POSTGRES_PASSWORD=${DB_PASSWORD}
+      # - POSTGRES_DB=${DB_NAME}
+      # - DATABASE_HOST=${pghost}
+      # - POSTGRES_USER=postgres 
+      - POSTGRES_PASSWORD=postgres
+      # - POSTGRES_DB=dockerresume
+      # - DATABASE_HOST=localhost
+    ports:
+      - '5433:5432'
+    volumes:
+      - resume_db:/var/lib/postgresql/data
+
+volumes:               
+  resume_db: 

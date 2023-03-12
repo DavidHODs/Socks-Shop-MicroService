@@ -1,15 +1,14 @@
 FROM golang:alpine as builder
 RUN mkdir -p /go/src/github.com/DavidHODs/Docker-Resume
 COPY app/ /go/src/github.com/DavidHODs/Docker-Resume
-COPY app/docker.env /go/src/github.com/DavidHODs/Docker-Resume
 WORKDIR /go/src/github.com/DavidHODs/Docker-Resume
 RUN go build /go/src/github.com/DavidHODs/Docker-Resume/main.go
 
-ARG host     
-ARG port    
-ARG user     
+ARG host  
+ARG port
+ARG user
 ARG password
-ARG dbname   
+ARG dbname
 
 LABEL version="latest"
 LABEL maintainer="davidoluwatobi41@gmail.com"

@@ -6,8 +6,6 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-	"os"
-	"strconv"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -70,23 +68,23 @@ func insertRecord(res http.ResponseWriter, req *http.Request) {
 }
 
 // loads env details
-func loadEnv() (string, int, string, string, string) {
-	// the env details are now set up with docker - the following code piece can be uncommented if it's running on bare machine
-	// err := godotenv.Load(".env")
-	// if err != nil {
-	// 	log.Fatal("could not load environment file")
-	// }
+// the env details are now set up with docker - the following code piece can be uncommented if it's running on bare machine
+// func loadEnv() (string, int, string, string, string) {
+// err := godotenv.Load(".env")
+// if err != nil {
+// 	log.Fatal("could not load environment file")
+// }
 
-	port, _ := strconv.Atoi(os.Getenv("port"))
+// 	port, _ := strconv.Atoi(os.Getenv("port"))
 
-	return os.Getenv("host"), port, os.Getenv("user"), os.Getenv("password"), os.Getenv("dbname")
-}
+// 	return os.Getenv("host"), port, os.Getenv("user"), os.Getenv("password"), os.Getenv("dbname")
+// }
 
 // sets up a database connection
 func database() {
-	host, port, user, password, dbname := loadEnv()
+	// host, port, user, password, dbname := loadEnv()
 
-	info := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+	info := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", "db", 5432, "postgres", "postgres", "dockerresume")
 
 	var err error
 
@@ -116,7 +114,7 @@ func main() {
 
 	srv := &http.Server{
 		Handler:      router,
-		Addr:         fmt.Sprintf("127.0.0.1:%d", port),
+		Addr:         fmt.Sprintf("0.0.0.0:%d", port),
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
