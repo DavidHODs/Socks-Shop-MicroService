@@ -6,9 +6,12 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"os"
+	"strconv"
 	"time"
 
 	"github.com/gorilla/mux"
+	_ "github.com/lib/pq"
 )
 
 var db *sql.DB
@@ -64,6 +67,39 @@ func insertRecord(res http.ResponseWriter, req *http.Request) {
 		http.Error(res, err.Error(), http.StatusInternalServerError)
 	}
 	http.Redirect(res, req, "/", http.StatusSeeOther)
+}
+
+// loads env details
+func loadEnv() (string, int, string, string, string) {
+	// the env details are now set up with docker - the following code piece can be uncommented if it's running on bare machine
+	// err := godotenv.Load(".env")
+	// if err != nil {
+	// 	log.Fatal("could not load environment file")
+	// }
+
+	port, _ := strconv.Atoi(os.Getenv("port"))
+
+	return os.Getenv("host"), port, os.Getenv("user"), os.Getenv("password"), os.Getenv("dbname")
+}
+
+// sets up a database connection
+func database() {
+	host, port, user, password, dbname := loadEnv()
+
+	info := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+
+	var err error
+
+	db, err = sql.Open("postgres", info)
+	if err != nil {
+		panic(err)
+	}
+
+	err = db.Ping()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("Established a successful connection!")
 }
 
 func main() {
