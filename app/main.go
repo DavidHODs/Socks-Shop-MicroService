@@ -3,9 +3,11 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"html/template"
 	"log"
 	"net/http"
+	"os"
+	"strconv"
+	"text/template"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -69,22 +71,22 @@ func insertRecord(res http.ResponseWriter, req *http.Request) {
 
 // loads env details
 // the env details are now set up with docker - the following code piece can be uncommented if it's running on bare machine
-// func loadEnv() (string, int, string, string, string) {
-// err := godotenv.Load(".env")
-// if err != nil {
-// 	log.Fatal("could not load environment file")
-// }
+func loadEnv() (string, int, string, string, string) {
+	// err := godotenv.Load(".env")
+	// if err != nil {
+	// 	log.Fatal("could not load environment file")
+	// }
 
-// 	port, _ := strconv.Atoi(os.Getenv("port"))
+	port, _ := strconv.Atoi(os.Getenv("port"))
 
-// 	return os.Getenv("host"), port, os.Getenv("user"), os.Getenv("password"), os.Getenv("dbname")
-// }
+	return os.Getenv("hostname"), port, os.Getenv("user"), os.Getenv("password"), os.Getenv("dbname")
+}
 
 // sets up a database connection
 func database() {
-	// host, port, user, password, dbname := loadEnv()
+	hostname, port, user, password, dbname := loadEnv()
 
-	info := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", "db", 5432, "postgres", "postgres", "dockerresume")
+	info := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", hostname, port, user, password, dbname)
 
 	var err error
 

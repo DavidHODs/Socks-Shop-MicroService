@@ -4,17 +4,18 @@ COPY app/ /go/src/github.com/DavidHODs/Docker-Resume
 WORKDIR /go/src/github.com/DavidHODs/Docker-Resume
 RUN go build /go/src/github.com/DavidHODs/Docker-Resume/main.go
 
-ARG host  
+ARG hostname  
 ARG port
 ARG user
 ARG password
 ARG dbname
 
 LABEL version="latest"
+LABEL author="David Oluwatobi"
 LABEL maintainer="davidoluwatobi41@gmail.com"
 
 FROM alpine
 RUN apk add --no-cache ca-certificates && update-ca-certificates
-COPY --from=builder /go/src/github.com/DavidHODs/Docker-Resume/ /usr/bin/github.com/DavidHODs
+COPY --from=builder /go/src/github.com/DavidHODs/Docker-Resume/ /
 EXPOSE 8000 
-ENTRYPOINT ["/usr/bin/github.com/DavidHODs/main"]
+ENTRYPOINT ["/main"]
