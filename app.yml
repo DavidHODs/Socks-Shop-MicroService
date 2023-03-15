@@ -13,8 +13,13 @@ spec:
         app: resume-app
     spec:
       containers:
-        - name: resume-app
-          image: davidhod95/resume:0.0.1
+        - name: resume-appl
+          image: davidhod95/resume:resume
+          imagePullPolicy: Always
+          resources:
+            limits:
+              memory: "2Gi"
+              cpu: "1000m"
           env: 
             - name: hostname
               value: "db"
@@ -38,10 +43,11 @@ kind: Service
 metadata:
   name: resume-app-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: resume-app
   ports:
     - protocol: TCP
       port: 8000
-      targetPort: 8001
+      targetPort: 8000
+      nodePort: 30000
