@@ -30,6 +30,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: resume-db-service
+  namespace: resume
   
 spec:
   selector:

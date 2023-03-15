@@ -66,6 +66,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: resume-app-service
+  namespace: resume
   
 spec:
   selector:
@@ -81,10 +82,11 @@ spec:
 ---
 
 
-apiVersion: v1 
+apiVersion: v1
 kind: ConfigMap
 metadata:
   name: resume-app-configmap
+  namespace: resume
 data:
   hostname: resume-db-service
   port: "5432"
@@ -94,9 +96,10 @@ data:
 
 
 apiVersion: v1
-kind: Secret 
+kind: Secret
 metadata:
   name: resume-app-secret
+  namespace: resume
 type: Opaque
 data:
   user: cG9zdGdyZXM=
