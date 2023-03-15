@@ -88,6 +88,8 @@ func database() {
 
 	info := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", hostname, port, user, password, dbname)
 
+	fmt.Println("info ", info)
+
 	var err error
 
 	db, err = sql.Open("postgres", info)

@@ -22,7 +22,7 @@ spec:
               cpu: "1000m"
           env: 
             - name: hostname
-              value: "db"
+              value: "resume-db-service"
             - name: port
               value: "5432"
             - name: user
@@ -43,9 +43,9 @@ kind: Service
 metadata:
   name: resume-app-service
 spec:
-  type: LoadBalancer
   selector:
     app: resume-app
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 8000

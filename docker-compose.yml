@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    image: resume:latest
+    image: davidhod95/resume:resume
     container_name: resume-app
     environment:
       - hostname=${hostname}
