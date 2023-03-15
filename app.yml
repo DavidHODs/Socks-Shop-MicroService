@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resume-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: resume-app
+  template:
+    metadata:
+      labels:
+        app: resume-app
+    spec:
+      containers:
+        - name: resume-app
+          image: resume:latest
+          ports:
+            - containerPort: 5432
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: resume-app
+spec:
+  selector:
+    app: resume-app
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
