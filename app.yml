@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: resume-app
+  name: resume-app-depl
 spec:
   replicas: 1
   selector:
@@ -14,9 +14,20 @@ spec:
     spec:
       containers:
         - name: resume-app
-          image: resume:latest
+          image: davidhod95/resume:0.0.1
+          env: 
+            - name: hostname
+              value: "db"
+            - name: port
+              value: "5432"
+            - name: user
+              value: "postgres"
+            - name: password
+              value: "postgres"
+            - name: dbname
+              value: "postgres"
           ports:
-            - containerPort: 5432
+            - containerPort: 8000
 
 
 ---
@@ -25,11 +36,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: resume-app
+  name: resume-app-service
 spec:
+  type: NodePort
   selector:
     app: resume-app
   ports:
     - protocol: TCP
-      port: 5432
-      targetPort: 5432
+      port: 8000
+      targetPort: 8001
