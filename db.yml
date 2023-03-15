@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: resume-db-depl
+
 spec:
   replicas: 1
   selector:
@@ -11,10 +12,12 @@ spec:
     metadata:
       labels:
         app: resume-db
+
     spec:
       containers:
         - name: resume-db
           image: davidhod95/resume:resume-db
+          imagePullPolicy: Always
           ports:
             - containerPort: 5432
 
@@ -26,6 +29,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: resume-db-service
+  
 spec:
   selector:
     app: resume-db

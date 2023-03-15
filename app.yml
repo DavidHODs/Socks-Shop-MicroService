@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: resume-app-depl
+
 spec:
   replicas: 1
   selector:
@@ -11,6 +12,7 @@ spec:
     metadata:
       labels:
         app: resume-app
+
     spec:
       containers:
         - name: resume-appl
@@ -20,17 +22,38 @@ spec:
             limits:
               memory: "2Gi"
               cpu: "1000m"
+
           env: 
             - name: hostname
-              value: "resume-db-service"
+              valueFrom:
+                configMapKeyRef:
+                  name: resume-app-configmap 
+                  key: hostname
+
             - name: port
-              value: "5432"
+              valueFrom:
+                configMapKeyRef:
+                  name: resume-app-configmap 
+                  key: port
+
             - name: user
-              value: "postgres"
+              valueFrom: 
+                secretKeyRef:
+                  name: resume-app-secret
+                  key: user
+
             - name: password
-              value: "postgres"
+              valueFrom: 
+                secretKeyRef:
+                  name: resume-app-secret
+                  key: password
+
             - name: dbname
-              value: "postgres"
+              valueFrom: 
+                secretKeyRef:
+                  name: resume-app-secret
+                  key: dbname
+
           ports:
             - containerPort: 8000
 
@@ -42,6 +65,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: resume-app-service
+  
 spec:
   selector:
     app: resume-app
@@ -51,3 +75,29 @@ spec:
       port: 8000
       targetPort: 8000
       nodePort: 30000
+
+
+---
+
+
+apiVersion: v1 
+kind: ConfigMap
+metadata:
+  name: resume-app-configmap
+data:
+  hostname: resume-db-service
+  port: "5432"
+
+
+---
+
+
+apiVersion: v1
+kind: Secret 
+metadata:
+  name: resume-app-secret
+type: Opaque
+data:
+  user: cG9zdGdyZXM=
+  password: cG9zdGdyZXM=
+  dbname: cG9zdGdyZXM=

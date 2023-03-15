@@ -1,9 +1,3 @@
--- CREATE USER 'postgres'@'%' IDENTIFIED BY 'postgres';
--- --CREATE DATABASE
--- CREATE DATABASE dockerresume;
-
--- SWITCH DATABASE
--- /connect dockerresume;
 \connect postgres postgres;
 
 -- CREATE TABLE
