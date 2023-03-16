@@ -2,4 +2,5 @@ docker/.env
 terraform/.terraform
 terraform/.terraform.lock.hcl
 terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
 file.txt

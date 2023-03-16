@@ -18,7 +18,7 @@ module "eks" {
     one = {
       name = "kube-node-1"
 
-      instance_types = ["t3.large"]
+      instance_types = ["t3.medium"]
 
       min_size = 1
       max_size = 3
@@ -28,7 +28,7 @@ module "eks" {
     two = {
       name = "kube-node-2"
 
-      instance_types = ["t3.large"]
+      instance_types = ["t3.medium"]
 
       min_size = 1
       max_size = 2
