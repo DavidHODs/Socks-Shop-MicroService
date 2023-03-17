@@ -1,0 +1,16 @@
+version: '3'
+services:
+  jenkins:
+    container_name: jenkins
+    image: jenkins/jenkins:latest
+    privileged: true
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - docker:/var/run/docker.sock
+      - jenkins:/var/jenkins_home
+
+volumes:               
+  docker: 
+  jenkins:
