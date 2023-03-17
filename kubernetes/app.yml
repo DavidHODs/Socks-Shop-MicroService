@@ -67,16 +67,19 @@ kind: Service
 metadata:
   name: resume-app-service
   namespace: resume
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8000"
   
 spec:
   selector:
     app: resume-app
-  type: ClusterIP
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 8000
       targetPort: 8000
-      # nodePort: 30000 
+      nodePort: 30000 
 
 
 ---
