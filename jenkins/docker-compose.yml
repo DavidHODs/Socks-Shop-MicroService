@@ -3,6 +3,7 @@ services:
   jenkins:
     container_name: jenkins
     image: jenkins/jenkins:latest
+    user: "0"
     privileged: true
     ports:
       - "8080:8080"
