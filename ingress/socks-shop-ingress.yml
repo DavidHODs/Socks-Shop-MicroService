@@ -16,4 +16,4 @@ spec:
           service:
             name: front-end
             port: 
-              number: 8079 
+              number: 80
