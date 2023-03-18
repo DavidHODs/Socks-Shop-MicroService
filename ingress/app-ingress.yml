@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kube-ingress-app
+  namespace: resume
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: resume.davidoluwatobi.me
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend: 
+          service:
+            name: resume-app-service
+            port: 
+              number: 8000  

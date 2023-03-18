@@ -74,12 +74,12 @@ metadata:
 spec:
   selector:
     app: resume-app
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - protocol: TCP
       port: 8000
       targetPort: 8000
-      nodePort: 30000 
+      # nodePort: 30000 
 
 
 ---
