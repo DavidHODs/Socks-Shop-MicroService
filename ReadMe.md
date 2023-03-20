@@ -1,6 +1,6 @@
 # Description
 
-This is a microservices based architecture project deployed on kubernetes in which two different web applications are deployed on the same AWS EKS cluster.
+This is a microservices based architecture project deployed on kubernetes in which two different web applications are deployed on the same AWS EKS cluster
 
 - A personal resume web application
 - The [Socks Shop](https://microservices-demo.github.io/) example microservice application
@@ -95,3 +95,4 @@ cd into the loki folder and run the following commands;
 - Create a kubernetes credential, copy the content of your .kube/config into the content section and set the ID to be kubernetes
 - Create a pipeline job and copy the content of jenkinsfile that can be found in the jenkins folder
 - Build the created job
+  
