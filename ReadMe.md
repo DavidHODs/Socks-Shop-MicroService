@@ -1,6 +1,6 @@
 # Description
 
-This is a microservices based architecture project deployed on kubernetes in which two different web applications are deployed on the same AWS EKS cluster.
+This is a microservices based architecture project deployed on kubernetes in which two different web applications are deployed on the same AWS EKS cluster
 
 - A personal resume web application
 - The [Socks Shop](https://microservices-demo.github.io/) example microservice application
